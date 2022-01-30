@@ -5,9 +5,20 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use App\Http\Resources\Vehicle as VehicleResources;
+
+
 
 class VehicleController extends Controller
 {
+
+
+     protected $vehicle;
+
+    public function __construct (Vehicle $vehicle)
+    {
+        $this->vehicle = $vehicle;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +37,9 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vehicle = $this->vehicle->create($request->all());
+
+        return response()->json(new VehicleResources($vehicle),201);
     }
 
     /**

@@ -15,6 +15,11 @@ class CreateVehiclesTable extends Migration
     {
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->string('cedula');
+            $table->string('placa');
+            $table->string('marca');
+            $table->string('tipo_vehiculo');
             $table->timestamps();
         });
     }

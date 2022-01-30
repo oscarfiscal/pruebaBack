@@ -14,7 +14,12 @@ class VehicleFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nombre'=>$this->faker->name,
+            'cedula'=>$this->faker->numberBetween(1000000,9999999),
+            'placa'=>$this->faker->regexify('[A-Z]{3}[0-9]{3}'),
+            'marca'=>$this->faker->company,
+            'tipo_vehiculo'=>$this->faker->randomElement(['Carro','Moto','Camioneta']),
+            
         ];
     }
 }
