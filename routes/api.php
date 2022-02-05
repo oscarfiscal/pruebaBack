@@ -27,3 +27,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
      ! date:29/01/2022
     */
     Route::post('/register',[App\Http\Controllers\api\VehicleController::class,'store']);
+    Route::get('/vehicle',[App\Http\Controllers\api\VehicleController::class,'index']);

@@ -15,6 +15,39 @@ class RegisterControllerTest extends TestCase
      *
      * @return void
      */
+    public function test_vehicle_type_index()
+    {
+        $this->withoutExceptionHandling();
+
+     Vehicle::factory()->create();
+        
+     
+     $response=$this->get('/api/vehicle');
+
+     $response->assertOk();
+     $vehicle=Vehicle::all(); 
+     $response->assertJson([
+            'data'=> [
+                [
+                    'data'=>[
+                       'status'=>'Ok',
+                        'type'=>'Vehiculo Registrado',
+                        'vehiculo'=>$vehicle->first()->id,
+                        'attributes'=>[
+                            'nombre'=>$vehicle->first()->nombre,
+                            'cedula'=>$vehicle->first()->cedula,
+                            'placa'=>$vehicle->first()->placa,
+                            'marca'=>$vehicle->first()->marca,
+                            'tipo_vehiculo'=>$vehicle->first()->tipo_vehiculo,
+                            
+
+                        ]
+                    ]
+                                ]
+                            ],
+            
+        ]);
+    }
     public function test_register_vehicle()
     {
         
