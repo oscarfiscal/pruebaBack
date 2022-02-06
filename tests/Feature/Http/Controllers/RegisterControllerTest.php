@@ -76,9 +76,7 @@ class RegisterControllerTest extends TestCase
         $this->assertEquals('toyota',$vehicle->marca);
         $this->assertEquals('Motocicleta',$vehicle->tipo_vehiculo);
        
-
-        
-
+            
         $response ->assertJson([
             'data'=>[
                 'status'=>'Ok',
@@ -98,6 +96,15 @@ class RegisterControllerTest extends TestCase
                     ],
     
 ]);
+        $this->assertDatabaseHas('vehicles',[
+                 'nombre'=>'oscar fiscal',
+                 'cedula'=>'32341212',
+                 'placa'=>'MJX41E',
+                 'marca'=>'toyota',
+                 'tipo_vehiculo'=>'Motocicleta',
+    
+]);
+    
 }
 
 public function test_required_fields_vehicle()

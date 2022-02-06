@@ -27,19 +27,22 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     //listar todos los vehiculos
     public function index()
     {
         $vehicle = Vehicle::all();
             return new VehicleCollection($vehicle); 
-    
     }
-    //consulta 
+    //consulta que lista los vehiculos existentes por cada marca
+    //donde se modifican los nombres de dichas marcas para que siempre se muestren
+    //unicamente con la primer letra en mayuscula y las demas en minuscula  
     public function query()
     {
        
         $sql=DB::select('Select  marca,count(*),CONCAT(UPPER(SUBSTRING(marca,1,1)),LOWER(SUBSTRING(marca,2))) AS Marcas from vehicles group by marca HAVING COUNT(*)') ;
 
-        return  ($sql);
+        return  response()->json($sql);
     }
 
     /**
@@ -48,10 +51,9 @@ class VehicleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+     // crear un nuevo vehiculo
     public function store(VehicleRequest $request)
     {
-            // crear un nuevo vehiculo
-
         $vehicle = $this->vehicle->create($request->all());
 
         return response()->json(new VehicleResources($vehicle),201);
