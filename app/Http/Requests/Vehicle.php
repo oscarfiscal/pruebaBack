@@ -25,8 +25,8 @@ class Vehicle extends FormRequest
     {
         return [
             'nombre'=>'required',
-            'cedula'=>'required,unique:vehicles',
-            'placa'=>'required,unique:vehicles',
+            'cedula'=>'required|unique:vehicles',
+            'placa'=>'required|unique:vehicles', 
             'marca'=>'required',
             'tipo_vehiculo'=>'required',
         ];

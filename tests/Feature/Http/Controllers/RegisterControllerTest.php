@@ -99,4 +99,25 @@ class RegisterControllerTest extends TestCase
     
 ]);
 }
+
+public function test_required_fields_vehicle()
+{
+
+    $this->withoutMiddleware();
+    $this->json('POST','/api/register', ['Accept' => 'application/json'])
+    ->assertStatus(422)
+    ->assertJson([
+        "message" => "The given data was invalid.",
+       "errors" => [
+            "nombre"=>["The nombre field is required."],
+           "cedula"=>["The cedula field is required."], 
+            "placa"=>["The placa field is required."],
+            "marca"=>["The marca field is required."],
+            "tipo_vehiculo"=>["The tipo vehiculo field is required."],
+           
+        ]
+    ]);
+        
+            
+        }
 }

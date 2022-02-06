@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
-use App\Http\Resources\Vehicle as VehicleResources;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\VehicleCollection;
+use App\Http\Requests\Vehicle as VehicleRequest;
+use App\Http\Resources\Vehicle as VehicleResources;
 
 
 
@@ -27,11 +29,17 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        // mostrar todos los vehiculos
-        
         $vehicle = Vehicle::all();
+            return new VehicleCollection($vehicle); 
+    
+    }
+    //consulta 
+    public function query()
+    {
+       
+        $sql=DB::select('Select  marca,count(*),CONCAT(UPPER(SUBSTRING(marca,1,1)),LOWER(SUBSTRING(marca,2))) AS Marcas from vehicles group by marca HAVING COUNT(*)') ;
 
-        return new VehicleCollection ($vehicle);
+        return  ($sql);
     }
 
     /**
@@ -40,7 +48,7 @@ class VehicleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VehicleRequest $request)
     {
             // crear un nuevo vehiculo
 
